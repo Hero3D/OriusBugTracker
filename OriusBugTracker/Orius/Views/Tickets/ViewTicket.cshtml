@@ -1,0 +1,38 @@
+﻿@model Orius.Models.TicketModel
+
+@{
+    ViewBag.Title = "Report Viewer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-6 col-md-offset-3 appear-animation" data-appear-animation="bounceInDown">
+    <section class="panel">
+        <div class="panel-heading">
+            <h1 class="panel-title">@Model.Title <label class="pull-right text-sm"># @Model.Id</label></h1>
+            <h5 class="panel-subtitle">
+                <button class="btn btn-xs btn-default"><i class="fa fa-circle" style="color:@Orius.Scripts.ElementColorLibrary.GetStatusColor(Model.Status)"> </i> @Model.Status </button>
+                <button class="btn btn-xs btn-default"><i class="fa fa-flag" style="color:@Orius.Scripts.ElementColorLibrary.GetPriorityColor(Model.Priority)"> </i> @Model.Priority </button>
+            </h5>
+        </div>
+        <dl class="panel-body">
+            <dt>
+                @Html.DisplayNameFor(model => model.Description):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dd>
+                <br />
+                Submitted by <a>@Model.Submitter</a> on @Model.TimeSubmitted.ToShortDateString()  - @Model.TimeSubmitted.ToShortTimeString()
+            </dd>
+        </dl>
+    </section>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+</div>

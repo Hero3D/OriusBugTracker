@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Orius.Models.TicketModel>
+
+@{
+    ViewBag.Title = "Bug Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<row class="">
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Report Index</h2>
+
+            <h2 class="panel-subtitle"></h2>
+
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-hover table-striped mb-none" id="datatable-details">
+                <thead>
+                    <tr>
+                        <th class="text-center"><i data-toggle="" class="fa fa-wrench text h5 m-none" style="cursor: pointer;"></i></th>
+                        <th class="text-center">ID</th>
+                        <th>Title</th>
+                        <th class="text-center">Priority</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Submitter</th>
+                        <th class="text-center">Time Submitted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr class="text-center">
+                            <td>
+                                <a class="mb-xs mt-xs mr-xs fa fa-eye" data-toggle="modal" data-target="#@item.Id-view"></a>
+
+                                <div class="modal fade" id="@item.Id-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-eye"></i> View</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                @Html.Partial("TicketPartial", item)
+                                            </div>
+                                            <panel class="panel">
+
+                                            </panel>
+                                            <div class="modal-footer">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <a class="mb-xs mt-xs mr-xs fa fa-edit" data-toggle="modal" data-target="#@item.Id-edit"></a>
+
+                                <div class="modal fade" id="@item.Id-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i>Edit</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                    @Html.Partial("TicketFormPartial", item)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <td>
+                                @item.Id
+                            </td>
+
+                            <td class="text-left">
+                                @item.Title
+                            </td>
+                            <td>
+                                <label class="btn btn-default btn-xs">
+                                    <i class="fa fa-flag" style="color:@Orius.Scripts.ElementColorLibrary.GetPriorityColor(item.Priority)"></i>
+                                    @item.Priority
+
+                                </label>
+                            </td>
+                            <td>
+                                <label class="btn btn-default btn-xs">
+                                    <i class="fa fa-circle text-xs" style="color:@Orius.Scripts.ElementColorLibrary.GetStatusColor(item.Status)"></i>
+                                    @item.Status
+
+                                </label>
+                            </td>
+
+                            @{
+                                try
+                                {
+                                    <td>
+                                        <a href="@Url.Action("ViewProfile", "User", item.Submitter)">
+                                            @item.Submitter
+                                        </a>
+                                    </td>
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.Write(ex);
+                                }
+                            }
+
+
+
+                            <td>@item.TimeSubmitted</td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </section>
+</row>
+
+<p>
+    @Html.ActionLink("+ New Ticket", "CreateTicket", "Tickets")
+</p>
+
+
+

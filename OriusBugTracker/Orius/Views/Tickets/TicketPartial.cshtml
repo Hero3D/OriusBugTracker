@@ -1,0 +1,55 @@
+﻿@model Orius.Models.TicketModel
+
+
+<section class="panel">
+    <div class="panel-heading">
+        <h1 class="panel-title">@Model.Title <br /><label class="text-sm"># @Model.Id</label></h1>
+        <h5 class="panel-subtitle">
+            <button class="btn btn-xs btn-default"><i class="fa fa-circle text-xs" style="color:@Orius.Scripts.ElementColorLibrary.GetStatusColor(Model.Status)"> </i> @Model.Status </button>
+            <button class="btn btn-xs btn-default"><i class="fa fa-flag text-xs" style="color:@Orius.Scripts.ElementColorLibrary.GetPriorityColor(Model.Priority)"> </i> @Model.Priority </button>
+        </h5>
+    </div>
+    <dl class="panel-body">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <section class="panel-footer">
+        Submitted by <a>@Model.Submitter</a> on @Model.TimeSubmitted.ToShortDateString()  - @Model.TimeSubmitted.ToShortTimeString()
+        <br />
+        <hr />
+        <label class="">
+            @{
+                if (Model.Status == TicketStatus.Claimed)
+                {
+                    <label>
+                        Claimed by
+
+                        @{
+                            try
+                            {
+                                <a>@DataLibrary.BuisnessLogic.UserProcessor.LoadUsers().Where(x => x.Id == Model.Claimer).FirstOrDefault().Username</a>
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.Write($"Load User Exception: {ex}");
+                            }
+                        }
+
+
+                    </label>
+                }
+                else
+                {
+                    <a href="@Url.Action("ClaimTicket", "Tickets", Model)"><label class="btn btn-warning">Claim</label></a>
+                }
+            }
+        </label>
+
+    </section>
+</section>
