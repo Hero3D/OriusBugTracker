@@ -95,3 +95,7 @@ C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\D
 C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\Dapper.xml
 C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\BCrypt.Net.dll
 C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\BCrypt.Net.xml
+C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\PagedList.dll
+C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\PagedList.Mvc.dll
+C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\PagedList.xml
+C:\Users\Bosman\Desktop\Software Dev\OriusBugTracker\OriusBugTracker\Orius\bin\PagedList.Mvc.xml

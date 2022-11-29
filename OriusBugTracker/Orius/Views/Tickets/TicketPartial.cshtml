@@ -20,7 +20,7 @@
     </dl>
 
     <section class="panel-footer">
-        Submitted by <a>@Model.Submitter</a> on @Model.TimeSubmitted.ToShortDateString()  - @Model.TimeSubmitted.ToShortTimeString()
+        Submitted by  <a href="@Url.Action("ViewProfile", "User", new {username = Model.Submitter})">@Model.Submitter</a> on @Model.TimeSubmitted.ToShortDateString()  - @Model.TimeSubmitted.ToShortTimeString()
         <br />
         <hr />
         <label class="">

@@ -49,6 +49,12 @@
       <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -151,14 +157,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\TicketModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,12 +183,18 @@
     <Content Include="assets\images\device.png" />
     <Content Include="assets\images\favicon.ico" />
     <Content Include="assets\images\icon.png" />
+    <Content Include="assets\images\Icons\Report_icon.png" />
+    <Content Include="assets\images\Icons\Search_icon.png" />
+    <Content Include="assets\images\Icons\SubmitReport_icon.png" />
+    <Content Include="assets\images\Icons\Users_icon.png" />
     <Content Include="assets\images\invoice-logo.png" />
     <Content Include="assets\images\jstree-dark.png" />
     <Content Include="assets\images\jstree.png" />
     <Content Include="assets\images\logo-default.png" />
     <Content Include="assets\images\logo-light.png" />
     <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\Logo2Transparent.png" />
+    <Content Include="assets\images\logos\SubLogo.png" />
     <Content Include="assets\images\patterns\az_subtle.png" />
     <Content Include="assets\images\patterns\blizzard.png" />
     <Content Include="assets\images\patterns\bright_squares.png" />
@@ -1717,6 +1727,7 @@
     <Content Include="assets\vendor\summernote\summernote.css" />
     <Content Include="assets\vendor\summernote\summernote.js" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2001,14 +2012,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Person\Index.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Dashboard\AdminIndex.cshtml" />
     <Content Include="Views\Tickets\CreateTicket.cshtml" />
     <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\User\SignIn.cshtml" />
@@ -2018,6 +2024,7 @@
     <Content Include="Views\Tickets\TicketFormPartial.cshtml" />
     <Content Include="Views\Tickets\DeleteTicketPartial.cshtml" />
     <Content Include="Views\User\ViewProfile.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

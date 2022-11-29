@@ -1,9 +1,40 @@
-﻿@model IEnumerable<Orius.Models.TicketModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model  IPagedList<Orius.Models.TicketModel>
+@*@model Orius.Models.TicketFilterModel*@
 
 @{
     ViewBag.Title = "Bug Reports";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+
+<section class="panel">
+    @*<header class="panel-heading">
+        <h2 class="panel-title text-center">Actions</h2>
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+    </header>*@
+    <div class="panel-body">
+        <p class="text-center">Quick Actions</p>
+        <div class="text-center">
+
+            <a href="@Url.Action("CreateTicket", "Tickets")" class="btn">
+                <img src="~/assets/images/Icons/SubmitReport_icon.png" height="50" />
+                <p>New Report</p>
+            </a>
+
+            <a href="@Url.Action("Index", "User")" class="btn">
+                <img src="~/assets/images/Icons/Users_icon.png" height="50" />
+                <p>Users</p>
+            </a>
+
+        </div>
+    </div>
+</section>
 
 <row class="">
     <section class="panel">
@@ -13,9 +44,18 @@
                 <a href="#" class="fa fa-times"></a>
             </div>
 
-            <h2 class="panel-title">Report Index</h2>
+            <h2 class="panel-title">
+                Report Index
+            </h2>
 
-            <h2 class="panel-subtitle"></h2>
+            <div class="panel-subtitle">
+                <p>Results: @Model.Count()</p>
+
+                @using (Html.BeginForm("Index", "Tickets", FormMethod.Get))
+                {
+                    @Html.TextBox("search", null, new { @class = "search-control-wrapper", @style = "border:solid .5px grey;" }) <input type="submit" value="Search" />
+                }
+            </div>
 
         </header>
         <div class="panel-body">
@@ -24,116 +64,116 @@
                     <tr>
                         <th class="text-center"><i data-toggle="" class="fa fa-wrench text h5 m-none" style="cursor: pointer;"></i></th>
                         <th class="text-center">ID</th>
-                        <th>Title</th>
                         <th class="text-center">Priority</th>
+                        <th>Title</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Submitter</th>
-                        <th class="text-center">Time Submitted</th>
+                        <th class="text-center">Date Submitted</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
 
-                        <tr class="text-center">
-                            <td>
-                                <a class="mb-xs mt-xs mr-xs fa fa-eye" data-toggle="modal" data-target="#@item.Id-view"></a>
+                    <tr class="text-center">
+                        <td>
+                            <a class="mb-xs mt-xs mr-xs fa fa-eye" data-toggle="modal" data-target="#@item.Id-view"></a>
 
-                                <div class="modal fade" id="@item.Id-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-eye"></i> View</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                @Html.Partial("TicketPartial", item)
-                                            </div>
-                                            <panel class="panel">
+                            <div class="modal fade" id="@item.Id-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-eye"></i> View</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            @Html.Partial("TicketPartial", item)
+                                        </div>
+                                        <panel class="panel">
 
-                                            </panel>
-                                            <div class="modal-footer">
+                                        </panel>
+                                        <div class="modal-footer">
 
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
 
 
-                                <a class="mb-xs mt-xs mr-xs fa fa-edit" data-toggle="modal" data-target="#@item.Id-edit"></a>
+                            <a class="mb-xs mt-xs mr-xs fa fa-edit" data-toggle="modal" data-target="#@item.Id-edit"></a>
 
-                                <div class="modal fade" id="@item.Id-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i>Edit</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>
-                                                    @Html.Partial("TicketFormPartial", item)
-                                                </p>
-                                            </div>
+                            <div class="modal fade" id="@item.Id-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i>Edit</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                @Html.Partial("TicketFormPartial", item)
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            <td>
-                                @item.Id
-                            </td>
+                        <td>
+                            @item.Id
+                        </td>
 
-                            <td class="text-left">
-                                @item.Title
-                            </td>
-                            <td>
-                                <label class="btn btn-default btn-xs">
-                                    <i class="fa fa-flag" style="color:@Orius.Scripts.ElementColorLibrary.GetPriorityColor(item.Priority)"></i>
-                                    @item.Priority
+                        <td class="text-left">
+                            <label>
+                                <i class="fa fa-flag" style="color:@Orius.Scripts.ElementColorLibrary.GetPriorityColor(item.Priority)"></i>
+                                @item.Priority
 
-                                </label>
-                            </td>
-                            <td>
-                                <label class="btn btn-default btn-xs">
-                                    <i class="fa fa-circle text-xs" style="color:@Orius.Scripts.ElementColorLibrary.GetStatusColor(item.Status)"></i>
-                                    @item.Status
+                            </label>
+                        </td>
 
-                                </label>
-                            </td>
+                        <td class="text-left">
+                            @item.Title
+                        </td>
 
-                            @{
-                                try
-                                {
-                                    <td>
-                                        <a href="@Url.Action("ViewProfile", "User", item.Submitter)">
-                                            @item.Submitter
-                                        </a>
-                                    </td>
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.Write(ex);
-                                }
+                        <td>
+                            <label>
+                                <i class="fa fa-circle text-xs" style="color:@Orius.Scripts.ElementColorLibrary.GetStatusColor(item.Status)"></i>
+                                @item.Status
+
+                            </label>
+                        </td>
+
+                        @{
+                            try
+                            {
+                                <td>
+                                    <a href="@Url.Action("ViewProfile", "User", new { username = item.Submitter })">
+                                        @item.Submitter
+                                    </a>
+                                </td>
                             }
+                            catch (Exception ex)
+                            {
+                                Console.Write(ex);
+                            }
+                        }
 
 
 
-                            <td>@item.TimeSubmitted</td>
-                        </tr>
+                        <td>@item.TimeSubmitted.Date.ToShortDateString()</td>
+                    </tr>
 
                     }
 
                 </tbody>
             </table>
-
+            <footer class="panel-footer pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Tickets", new { page }),
+                new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+            </footer>
 
         </div>
     </section>
 </row>
-
-<p>
-    @Html.ActionLink("+ New Ticket", "CreateTicket", "Tickets")
-</p>
-
 
 

@@ -1,7 +1,76 @@
-﻿
+﻿@model Orius.Models.DashboardViewModel
+
+
 @{
     ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<section class="panel panel-featured-dark col-md-6 col-md-offset-3">
 
-<h2 class="page-header">Dashboard</h2>
+    <header class="panel-heading text-center">
+        <p class="panel-subtitle">
+            <img src="~/assets/images/Icons/Users_icon.png" height="25" />
+            User Highlights
+        </p>
+    </header>
+
+    <div class="panel-body text-center">
+        <div class="panel panel-featured-dark col-md-6">
+            <header class="panel-heading">
+                <h3 class="panel-title">Top Submitter</h3>
+
+
+            </header>
+            <div class="panel-body">
+                <img src="~/assets/images/pfp.jpg" height="100" />
+                <a href="@Url.Action("ViewProfile", "User", new { username = Model.TopSubmitter })"><h4>@Model.TopSubmitter</h4></a>
+                <p>Submissions: @Model.TopSubmissions</p>
+            </div>
+        </div>
+        <div class="panel panel-featured-dark col-md-6">
+            <header class="panel-heading">
+                <h3 class="panel-title">Priority Closer</h3>
+
+            </header>
+            <div class="panel-body">
+                <img src="~/assets/images/pfp.jpg" height="100" />
+                <a href="@Url.Action("ViewProfile", "User", new { username = Model.HighPriorityCloser })"><h4>@Model.HighPriorityCloser</h4></a>
+                <p>High Priority Closes: @Model.HighPriorityCloses</p>
+            </div>
+        </div>
+        <a class="pull-right" href="@Url.Action("Index", "User")">Go to Users</a>
+    </div>
+</section>
+
+<section class="panel panel-featured-dark col-md-6 col-md-offset-3">
+
+    <header class="panel-heading text-center">
+        <p class="panel-subtitle">
+            <img src="~/assets/images/Icons/Report_icon.png" height="25" />
+            Report Highlights
+        </p>
+    </header>
+
+    <div class="panel-body text-center">
+        <div class="panel panel-featured-dark">
+            <header class="panel-heading">
+                <h3 class="panel-title">Report Summary</h3>
+
+            </header>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <img src="~/assets/images/Icons/Search_icon.png" height="100" />
+                </div>
+                <div class="col-md-6">
+                    <p>Total: @Model.TotalReports</p>
+                    <p>Open: @Model.OpenReports</p>
+                    <p>Claimed: @Model.ClaimedReports</p>
+                    <p>Closed: @Model.ClosedReports</p>
+                </div>
+            </div>
+        </div>
+
+        <a class="pull-right" href="@Url.Action("Index", "Tickets")">Go to Reports</a>
+    </div>
+</section>
 

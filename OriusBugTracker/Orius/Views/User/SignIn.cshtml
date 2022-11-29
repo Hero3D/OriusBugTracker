@@ -15,7 +15,7 @@
         <section class="body-sign">
             <div class="center-sign">
                 <a href="/" class="logo pull-left">
-                    <img src="/assets/images/logo.png" height="54" alt="Porto Admin" />
+                    <img src="/assets/images/Logo2Transparent.png" height="54" alt="Porto Admin" />
                 </a>
 
                 <div class="panel panel-sign">
@@ -40,7 +40,7 @@
                             <div class="form-group mb-lg">
                                 <div class="clearfix">
                                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 pull-left" })
-                                    <a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
+                                    @*<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>*@
                                 </div>
                                 <div class="input-group input-group-icon">
                                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
@@ -70,10 +70,10 @@
                                 <span>or</span>
                             </span>
 
-                            <div class="mb-xs text-center">
+                            @*<div class="mb-xs text-center">
                                 <a class="btn btn-facebook mb-md ml-xs mr-xs">Connect with <i class="fa fa-facebook"></i></a>
                                 <a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>
-                            </div>
+                            </div>*@
 
                             <p class="text-center">Don't have an account yet? @Html.ActionLink("Sign Up!", "SignUp", "User")
 

@@ -1,0 +1,81 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Orius.Models.UserModel>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-body">
+        <p class="text-center">Quick Actions</p>
+        <div class="text-center">
+
+            <a href="@Url.Action("Index", "Tickets")" class="btn">
+                <img src="~/assets/images/Icons/Report_icon.png" height="50"/>
+                <p>Reports</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <header class="panel-heading">
+
+        <h2 class="panel-title">
+            User Index
+        </h2>
+        
+        <div class="panel-subtitle">
+            <p>Results: @Model.Count</p>
+
+            @using (Html.BeginForm("Index", "User", FormMethod.Get))
+            {
+                @Html.TextBox("search", null, new {@class = "search-control-wrapper", @style = "border:solid .5px grey;" }) <input type="submit" value="Search" />
+            }
+        </div>
+
+    </header>
+
+    <section class="panel-body">
+        <table class="table table-bordered table-hover table-striped mb-none" id="datatable-details">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().EmailAddress)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Username)*@
+                        @Html.ActionLink(item.Username, "ViewProfile", "User", new { username = item.Username }, new { })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <footer class="panel-footer pull-right">
+            @Html.PagedListPager(Model, page => Url.Action("Index", "User", new { page }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+        </footer>
+    </section>
+
+
+</div>

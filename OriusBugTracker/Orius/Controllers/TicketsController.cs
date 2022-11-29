@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DataLibrary.BuisnessLogic;
 using System.Linq;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Orius.Controllers
 {
@@ -11,13 +13,8 @@ namespace Orius.Controllers
     public class TicketsController : Controller
     {
         // GET: Tickets   
-        public ActionResult Index()
+        public ActionResult Index(string search, int? page)
         {
-            //var tickets = new List<TicketModel>();
-            //tickets.Add(new TicketModel { Title = "Hello World", Description = "just wanted to say hi...", Priority = TicketPriority.Low, Submitter = "John", TimeSubmitted = DateTime.Now, Status = TicketStatus.Open });
-            //tickets.Add(new TicketModel { Title = "Can You see me?", Description = "testing visibility", Priority = TicketPriority.Medium, Submitter = "Sarah", TimeSubmitted = DateTime.Now, Status = TicketStatus.Open });
-            //tickets.Add(new TicketModel { Title = "Something has gone wrong", Description = "jk lol", Priority = TicketPriority.Urgent, Submitter = "Connor", TimeSubmitted = DateTime.Now, Status = TicketStatus.Open });
-
             var data = TicketProcessor.LoadTickets();
             List<TicketModel> tickets = new List<TicketModel>();
 
@@ -34,14 +31,24 @@ namespace Orius.Controllers
                     Priority = (TicketPriority)row.Priority,
                     Claimer = row.Claimer,
                 });
-            }
+            }    
 
             var highPriorityCount = tickets.Where(x => x.Priority >= TicketPriority.High).Count();
 
             ViewData.Add("TicketCount", tickets.Count);
             ViewData.Add("HighPriorityTicketCount", highPriorityCount);
 
-            return View("Index", tickets);
+
+            // Filter Search
+            if (search != null)
+            {
+                tickets = tickets.Where(x => x.Id.ToString() == search || x.Title == search || x.Description == search || x.Status.ToString() == search 
+                || x.Submitter.ToString() == search || x.TimeSubmitted.ToString() == search || x.Priority.ToString() == search).ToList();
+            }
+
+            tickets = tickets.OrderByDescending(x => x.TimeSubmitted).ToList();
+
+            return View("Index", tickets.ToPagedList(page ?? 1, 5));
         }
 
         public ActionResult CreateTicket()
@@ -64,7 +71,20 @@ namespace Orius.Controllers
 
         public ActionResult ViewTicket(TicketModel model)
         {
-            return View(model);
+            var data = TicketProcessor.LoadTickets().Where(x => x.Id == model.Id).FirstOrDefault();
+
+            var output = new TicketModel
+            {
+                Id = data.Id,
+                Title = data.Title,
+                Description = data.Description,
+                Priority = (TicketPriority)data.Priority,
+                Status = (TicketStatus)data.Status,
+                TimeSubmitted = data.DateTime,
+                Claimer = data.Claimer
+            };
+
+            return View(output);
         }
 
         [HttpGet]
@@ -72,7 +92,12 @@ namespace Orius.Controllers
         {
             var data = TicketProcessor.LoadTickets().Where(x => x.Id == model.Id).FirstOrDefault();
 
-             model = new TicketModel
+            if (data == null)
+            {
+                return RedirectToAction("Index", "Tickets");
+            }
+
+            var output = new TicketModel
             {
                 Id = data.Id,
                 Title = data.Title,
@@ -83,7 +108,7 @@ namespace Orius.Controllers
                 Claimer = data.Claimer
             };
             
-            return View(model);
+            return View(output);
         }
 
 
@@ -95,7 +120,7 @@ namespace Orius.Controllers
             if (ModelState.IsValid)
             {
                 TicketProcessor.UpdateTicket(model.Id, model.Title, model.Description, (int)model.Priority, (int)model.Status, model.Claimer);
-                return RedirectToAction("ViewTicket", "Tickets", model);
+                return RedirectToAction("Index");
             }
 
             return View();

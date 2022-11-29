@@ -14,10 +14,24 @@ namespace Orius
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Reports",
+               url: "Reports",
+               defaults: new { controller = "Tickets", action = "Index"}
+           );
+
+            routes.MapRoute(
+               name: "Profile",
+               url: "User/ViewProfile/{username}",
+               defaults: new { controller = "User", action = "ViewProfile", username = UrlParameter.Optional }
+           );
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }
