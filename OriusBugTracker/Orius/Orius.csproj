@@ -1990,6 +1990,8 @@
     <Content Include="assets\vendor\style-switcher\less\shared.less" />
     <Content Include="assets\vendor\style-switcher\less\skin.less" />
     <Content Include="assets\vendor\style-switcher\less\variables.less" />
+    <None Include="Properties\PublishProfiles\OriusBugTracker - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\OriusTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2001,7 +2003,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
