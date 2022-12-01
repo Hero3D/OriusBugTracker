@@ -183,6 +183,7 @@
     <Content Include="assets\images\device.png" />
     <Content Include="assets\images\favicon.ico" />
     <Content Include="assets\images\icon.png" />
+    <Content Include="assets\images\Icons\OriusIcon.ico" />
     <Content Include="assets\images\Icons\Report_icon.png" />
     <Content Include="assets\images\Icons\Search_icon.png" />
     <Content Include="assets\images\Icons\SubmitReport_icon.png" />
@@ -1732,6 +1733,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="OriusIcon.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1990,6 +1992,7 @@
     <Content Include="assets\vendor\style-switcher\less\shared.less" />
     <Content Include="assets\vendor\style-switcher\less\skin.less" />
     <Content Include="assets\vendor\style-switcher\less\variables.less" />
+    <None Include="Properties\PublishProfiles\Orius - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\OriusBugTracker - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\OriusTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
