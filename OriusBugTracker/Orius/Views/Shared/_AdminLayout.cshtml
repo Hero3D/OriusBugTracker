@@ -69,7 +69,7 @@
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
 
                             <span class="name">@User.Identity.Name</span>
-                            <span class="role">administrator</span>
+                            <span class="role">@DataLibrary.BuisnessLogic.RoleProcessor.GetUserRole(User.Identity.Name).FirstOrDefault()</span>
                         </div>
 
                         <i class="fa custom-caret"></i>

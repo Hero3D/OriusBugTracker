@@ -1,5 +1,6 @@
 ﻿using DataLibrary.BuisnessLogic;
 using Orius.Models;
+using Orius.Scripts;
 using PagedList;
 using PagedList.Mvc;
 using System;
@@ -16,7 +17,6 @@ namespace Orius.Controllers
     {
         public const int WORK_FACTOR = 13;
 
-        [Authorize]
         public ActionResult Index(string search, int? page)
         {
             var data = UserProcessor.LoadUsers();
@@ -57,7 +57,8 @@ namespace Orius.Controllers
                 if (BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.Username, false);
-                    return RedirectToAction("Index", "Tickets");
+                    
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
 
@@ -77,6 +78,7 @@ namespace Orius.Controllers
             {
                 var encryptedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password, WORK_FACTOR);
                 int recordsCreated = UserProcessor.CreateUser(model.Username, encryptedPassword, model.EmailAddress);
+
                 return RedirectToAction("SignIn");
             }
 

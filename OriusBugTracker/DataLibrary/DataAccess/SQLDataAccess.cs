@@ -40,5 +40,27 @@ namespace DataLibrary.DataAccess
                 return cnn.Execute(sql);
             }
         }
+
+        public static int CallStoredProcedure(string procedureName, SQLParameter[] parameters = null)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                var cmd = new SqlCommand();
+                cmd.Connection = (SqlConnection)cnn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = procedureName;
+
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    cmd.Parameters.AddWithValue(parameters[i].Name, parameters[i].Data);
+                }
+
+                cnn.Open();
+                var records = cmd.ExecuteNonQuery();
+                cnn.Close();
+
+                return records;
+            }
+        }
     }
 }

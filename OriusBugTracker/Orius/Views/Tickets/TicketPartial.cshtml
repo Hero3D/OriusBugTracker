@@ -44,9 +44,23 @@
 
                     </label>
                 }
+                else if (Model.Status == TicketStatus.Open)
+                {
+                    {
+                        var role = DataLibrary.BuisnessLogic.RoleProcessor.GetUserRole(User.Identity.Name).FirstOrDefault();
+                        if (role != "Guest")
+                        {
+                            <a href="@Url.Action("ClaimTicket", "Tickets", Model)"><label class="btn btn-warning">Claim</label></a>
+                        }
+                        else
+                        {
+                            <label>You do not have permission to Claim Reports</label>
+                        }
+                    }
+                }
                 else
                 {
-                    <a href="@Url.Action("ClaimTicket", "Tickets", Model)"><label class="btn btn-warning">Claim</label></a>
+                    <label>Report Closed</label>
                 }
             }
         </label>

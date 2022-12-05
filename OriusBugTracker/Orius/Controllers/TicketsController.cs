@@ -6,13 +6,14 @@ using DataLibrary.BuisnessLogic;
 using System.Linq;
 using PagedList;
 using PagedList.Mvc;
+using Orius.Scripts;
 
 namespace Orius.Controllers
 {
     [Authorize]
     public class TicketsController : Controller
     {
-        // GET: Tickets   
+        // GET: Tickets  
         public ActionResult Index(string search, int? page)
         {
             var data = TicketProcessor.LoadTickets();
@@ -50,7 +51,7 @@ namespace Orius.Controllers
 
             return View("Index", tickets.ToPagedList(page ?? 1, 5));
         }
-
+        [CustomAuthorize("User", "Admin")]
         public ActionResult CreateTicket()
         {
             return View();
@@ -88,6 +89,7 @@ namespace Orius.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize("User", "Admin")]
         public ActionResult EditTicket(TicketModel model)
         {
             var data = TicketProcessor.LoadTickets().Where(x => x.Id == model.Id).FirstOrDefault();
@@ -126,6 +128,7 @@ namespace Orius.Controllers
             return View();
         }
 
+        [CustomAuthorize("Admin")]
         public ActionResult DeleteTicket(TicketModel model)
         {
             if (ModelState.IsValid)
@@ -137,6 +140,7 @@ namespace Orius.Controllers
             return View();
         }
 
+        [CustomAuthorize("User", "Admin")]
         public ActionResult ClaimTicket(TicketModel model)
         {
             if (ModelState.IsValid)

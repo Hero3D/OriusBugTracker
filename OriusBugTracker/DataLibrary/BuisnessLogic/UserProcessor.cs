@@ -12,9 +12,14 @@ namespace DataLibrary.BuisnessLogic
     {
         public static int CreateUser(string username, string password, string email)
         {
-            var sql = $@"exec dbo.spUser_Create @Username = '{username}', @Password = '{password}', @Email = '{email}'";
+            var parameters = new SQLParameter[]
+            {
+                new SQLParameter("@Username", username),
+                new SQLParameter("@Password", password),
+                new SQLParameter("@Email", email)
+            };
 
-            return SQLDataAccess.ExecuteData(sql);
+            return SQLDataAccess.CallStoredProcedure("dbo.spUser_Create", parameters);
         }
 
         public static List<UserModel> LoadUsers()
